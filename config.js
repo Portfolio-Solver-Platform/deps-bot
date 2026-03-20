@@ -16,6 +16,11 @@ module.exports = {
 
   packageRules: [
     {
+      "description": "Wait 5 days before creating PRs for standard updates to ensure stability",
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "minimumReleaseAge": "5 days"
+    },
+    {
       "description": "Group all minor and patch Rust crate updates together",
       "matchManagers": ["cargo"],
       "matchUpdateTypes": ["minor", "patch"],
