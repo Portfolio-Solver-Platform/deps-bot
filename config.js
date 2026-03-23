@@ -15,18 +15,27 @@ module.exports = {
   labels: ["deps-bot"],
 
   packageRules: [
+    // ===== Custom image tags
+    {
+      "description": "Parse custom timestamp Docker tags for internal apps",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["/^ghcr\\.io/portfolio-solver-platform//"],
+      "versioning": "regex:^main-[a-f0-9]{8}-(?<patch>\\d{14})$"
+    },
+    {
+      "description": "Prevent built-in managers from fighting our custom regex manager",
+      "matchManagers": ["helm-values", "flux"],
+      "matchPackageNames": ["/^ghcr\\.io/portfolio-solver-platform//"],
+      "enabled": false
+    },
+
+    // ===== Other rules
     {
       "description": "Wait 5 days before creating PRs for standard updates to ensure stability",
       "matchUpdateTypes": ["major", "minor", "patch"],
       "minimumReleaseAge": "5 days",
       // Exclude internal apps from the 5-day wait so CI/CD is instant
       "matchPackageNames": ["!/^ghcr\\.io/portfolio-solver-platform//"]
-    },
-    {
-      "description": "Parse custom timestamp Docker tags for internal apps",
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["/^ghcr\\.io/portfolio-solver-platform//"],
-      "versioning": "regex:^main-[a-f0-9]{8}-(?<patch>\\d{14})$"
     },
     {
       "description": "Group all minor and patch Rust crate updates together",
