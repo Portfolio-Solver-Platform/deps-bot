@@ -7,7 +7,10 @@ on:
         description: 'The app ID of the repo bot'
         required: false
         type: string
-        default: ''
+      repository:
+        description: 'The repository to run the deps bot on. Defaults to the current repository'
+        required: false
+        type: string
     secrets:
       repo_bot_private_key:
         description: 'Private key for the repo bot'
@@ -35,4 +38,4 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           repository: ${{ github.repository_owner }}/${{ env.REPOSITORY }}
           event-type: run-single
-          client-payload: '{"repository": "${{ github.repository }}"}'
+          client-payload: '{"repository": "${{ inputs.repository || github.repository }}"}'
