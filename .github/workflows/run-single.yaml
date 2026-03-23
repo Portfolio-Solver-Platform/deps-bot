@@ -1,12 +1,18 @@
-name: Run deps bot
+name: Run deps bot single-repo
 on:
-  schedule:
-    - cron: '0 0 * * *'
+  repository_dispatch:
+    types: [run-renovate]
   workflow_dispatch:
-  push:
-    branches: [main]
+    inputs:
+      repository:
+        description: 'Target repository (e.g., owner/repo)'
+        required: true
+        type: string
+
 env:
   RENOVATE_VERSION: 43.80.0 # renovate: datasource=docker depName=ghcr.io/renovatebot/renovate
+  TARGET_REPO: ${{ github.event.client_payload.repository || inputs.repository }}
+
 jobs:
   renovate:
     runs-on: ubuntu-latest
@@ -29,4 +35,4 @@ jobs:
           configurationFile: config.js
           token: ${{ steps.app-token.outputs.token }}
         env:
-          RENOVATE_AUTODISCOVER: 'true'
+          RENOVATE_REPOSITORIES: ${{ env.TARGET_REPO }}
