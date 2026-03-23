@@ -21,6 +21,12 @@ module.exports = {
       "minimumReleaseAge": "5 days"
     },
     {
+      "description": "Parse custom timestamp Docker tags for internal apps",
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": ["^ghcr\\.io/portfolio-solver-platform/"], 
+      "versioning": "regex:^main-[a-f0-9]{8}-(?<version>\\d{14})$"
+    },
+    {
       "description": "Group all minor and patch Rust crate updates together",
       "matchManagers": ["cargo"],
       "matchUpdateTypes": ["minor", "patch"],
