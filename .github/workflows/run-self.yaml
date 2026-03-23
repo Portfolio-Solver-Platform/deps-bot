@@ -1,0 +1,38 @@
+name: Trigger deps bot
+
+on:
+  workflow_call:
+    inputs:
+      repo_bot_app_id:
+        description: 'The app ID of the repo bot'
+        required: false
+        type: string
+        default: ''
+    secrets:
+      repo_bot_private_key:
+        description: 'Private key for the repo bot'
+        required: true
+
+env:
+  REPOSITORY: deps-bot
+
+jobs:
+  dispatch-deps-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate app token
+        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3
+        id: app-token
+        with:
+          app-id: ${{ inputs.repo_bot_app_id || vars.REPO_BOT_APP_ID }}
+          private-key: ${{ secrets.repo_bot_private_key }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ env.REPOSITORY }}
+
+      - name: Send webhook to deps bot
+        uses: peter-evans/repository-dispatch@28959ce8df70de7be546dd1250a005dd32156697 # v4.0.1
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          repository: ${{ github.repository_owner }}/${{ env.REPOSITORY }}
+          event-type: run-single
+          client-payload: '{"repository": "${{ github.repository }}"}'

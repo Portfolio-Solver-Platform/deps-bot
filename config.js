@@ -1,7 +1,7 @@
 module.exports = {
   // Bot settings
   platform: "github",
-  autodiscover: true,
+  autodiscover: false,
   onboarding: false,
   requireConfig: "optional",
   prHourlyLimit: 10,
