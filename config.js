@@ -20,7 +20,7 @@ module.exports = {
       "matchUpdateTypes": ["major", "minor", "patch"],
       "minimumReleaseAge": "5 days",
       // Exclude internal apps from the 5-day wait so CI/CD is instant
-      "excludePackageNames": ["/^ghcr\\.io/portfolio-solver-platform//"]
+      "matchPackageNames": ["!/^ghcr\\.io/portfolio-solver-platform//"]
     },
     {
       "description": "Parse custom timestamp Docker tags for internal apps",
