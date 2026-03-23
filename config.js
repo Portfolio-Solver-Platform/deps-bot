@@ -41,16 +41,20 @@ module.exports = {
       "description": "Wait 5 days before creating PRs for standard updates to ensure stability",
       "matchUpdateTypes": ["major", "minor", "patch"],
       "minimumReleaseAge": "5 days",
-      // BULLETPROOF FIX: Use Prefix matching instead of regex
       "excludePackagePrefixes": ["ghcr.io/portfolio-solver-platform/"]
     },
     {
-      "description": "Internal apps: Custom versioning and disable pinning",
+      "description": "NUCLEAR: Completely disable pinning for internal apps",
+      "matchPackagePrefixes": ["ghcr.io/portfolio-solver-platform/"],
+      "matchUpdateTypes": ["pin", "digest", "pinDigest"],
+      "enabled": false
+    },
+    {
+      "description": "Internal apps: Custom versioning and separate grouping",
       "matchDatasources": ["docker"],
-      // BULLETPROOF FIX: Use Prefix matching instead of regex
       "matchPackagePrefixes": ["ghcr.io/portfolio-solver-platform/"],
       "versioning": "regex:^main-[a-f0-9]{8}-(?<patch>\\d{14})$",
-      "pinDigests": false
+      "groupName": "Internal apps" // Separates them from postgres to stop branch collisions
     },
     {
       "description": "Group all minor and patch Rust crate updates together",
