@@ -15,18 +15,11 @@ module.exports = {
   labels: ["deps-bot"],
 
   packageRules: [
+    // ==== General rules
     {
       "description": "Wait 5 days before creating PRs for standard updates to ensure stability",
       "matchUpdateTypes": ["major", "minor", "patch"],
       "minimumReleaseAge": "5 days",
-      // Exclude internal apps from the 5-day wait so CI/CD is instant
-      "excludePackageNames": ["/^ghcr\\.io/portfolio-solver-platform//"]
-    },
-    {
-      "description": "Parse custom timestamp Docker tags for internal apps",
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["/^ghcr\\.io/portfolio-solver-platform//"],
-      "versioning": "regex:^main-[a-f0-9]{8}-(?<patch>\\d{14})$"
     },
     {
       "description": "Group all minor and patch Rust crate updates together",
@@ -49,6 +42,23 @@ module.exports = {
       "description": "Group all Docker image updates together",
       "matchDatasources": ["docker"],
       "groupName": "Docker image updates"
+    },
+
+
+    // ===== Internal apps
+    {
+      "description": "Disable pinning for internal apps",
+      "matchPackagePrefixes": ["ghcr.io/portfolio-solver-platform/"],
+      "matchUpdateTypes": ["pin", "digest", "pinDigest"],
+      "enabled": false
+    },
+    {
+      "description": "Internal apps: Custom versioning, separate grouping, no wait",
+      "matchDatasources": ["docker"],
+      "matchPackagePrefixes": ["ghcr.io/portfolio-solver-platform/"],
+      "versioning": "regex:^main-[a-f0-9]{8}-(?<patch>\\d{14})$",
+      "minimumReleaseAge": "0 days",
+      "groupName": "Internal apps"
     }
   ],
 };
