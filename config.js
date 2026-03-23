@@ -18,12 +18,14 @@ module.exports = {
     {
       "description": "Wait 5 days before creating PRs for standard updates to ensure stability",
       "matchUpdateTypes": ["major", "minor", "patch"],
-      "minimumReleaseAge": "5 days"
+      "minimumReleaseAge": "5 days",
+      // Exclude internal apps from the 5-day wait so CI/CD is instant
+      "excludePackageNames": ["/^ghcr\\.io/portfolio-solver-platform//"]
     },
     {
       "description": "Parse custom timestamp Docker tags for internal apps",
       "matchDatasources": ["docker"],
-      "matchPackagePatterns": ["^ghcr\\.io/portfolio-solver-platform/"], 
+      "matchPackageNames": ["/^ghcr\\.io/portfolio-solver-platform//"],
       "versioning": "regex:^main-[a-f0-9]{8}-(?<patch>\\d{14})$"
     },
     {
