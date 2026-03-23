@@ -15,46 +15,12 @@ module.exports = {
   labels: ["deps-bot"],
 
   packageRules: [
-    // ===== Custom image tags
-    // {
-    //   "description": "Parse custom timestamp Docker tags for internal apps",
-    //   "matchDatasources": ["docker"],
-    //   "matchPackageNames": ["/^ghcr\\.io/portfolio-solver-platform//"],
-    //   "versioning": "regex:^main-[a-f0-9]{8}-(?<patch>\\d{14})$"
-    // },
-    // {
-    //   "description": "Prevent built-in managers from fighting our custom regex manager",
-    //   "matchManagers": ["helm-values", "flux"],
-    //   "matchPackageNames": ["/^ghcr\\.io/portfolio-solver-platform//"],
-    //   "enabled": false
-    // },
-    //
-    // // ===== Other rules
-    // {
-    //   "description": "Wait 5 days before creating PRs for standard updates to ensure stability",
-    //   "matchUpdateTypes": ["major", "minor", "patch"],
-    //   "minimumReleaseAge": "5 days",
-    //   // Exclude internal apps from the 5-day wait so CI/CD is instant
-    //   "matchPackageNames": ["!/^ghcr\\.io/portfolio-solver-platform//"]
-    // },
+    // ==== General rules
     {
       "description": "Wait 5 days before creating PRs for standard updates to ensure stability",
       "matchUpdateTypes": ["major", "minor", "patch"],
       "minimumReleaseAge": "5 days",
       "excludePackagePrefixes": ["ghcr.io/portfolio-solver-platform/"]
-    },
-    {
-      "description": "NUCLEAR: Completely disable pinning for internal apps",
-      "matchPackagePrefixes": ["ghcr.io/portfolio-solver-platform/"],
-      "matchUpdateTypes": ["pin", "digest", "pinDigest"],
-      "enabled": false
-    },
-    {
-      "description": "Internal apps: Custom versioning and separate grouping",
-      "matchDatasources": ["docker"],
-      "matchPackagePrefixes": ["ghcr.io/portfolio-solver-platform/"],
-      "versioning": "regex:^main-[a-f0-9]{8}-(?<patch>\\d{14})$",
-      "groupName": "Internal apps" // Separates them from postgres to stop branch collisions
     },
     {
       "description": "Group all minor and patch Rust crate updates together",
@@ -77,6 +43,23 @@ module.exports = {
       "description": "Group all Docker image updates together",
       "matchDatasources": ["docker"],
       "groupName": "Docker image updates"
+    },
+
+
+    // ===== Internal apps
+    {
+      "description": "NUCLEAR: Completely disable pinning for internal apps",
+      "matchPackagePrefixes": ["ghcr.io/portfolio-solver-platform/"],
+      "matchUpdateTypes": ["pin", "digest", "pinDigest"],
+      "enabled": false
+    },
+    {
+      "description": "Internal apps: Custom versioning, separate grouping, bypass 5-day wait",
+      "matchDatasources": ["docker"],
+      "matchPackagePrefixes": ["ghcr.io/portfolio-solver-platform/"],
+      "versioning": "regex:^main-[a-f0-9]{8}-(?<patch>\\d{14})$",
+      "minimumReleaseAge": "0 days",
+      "groupName": "Internal apps"
     }
   ],
 };
