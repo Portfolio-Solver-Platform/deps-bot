@@ -41,16 +41,15 @@ module.exports = {
       "description": "Wait 5 days before creating PRs for standard updates to ensure stability",
       "matchUpdateTypes": ["major", "minor", "patch"],
       "minimumReleaseAge": "5 days",
-      // FIX 1: Change to excludePackagePatterns and fix the regex syntax
-      "excludePackagePatterns": ["^ghcr\\.io/portfolio-solver-platform/"]
+      // BULLETPROOF FIX: Use Prefix matching instead of regex
+      "excludePackagePrefixes": ["ghcr.io/portfolio-solver-platform/"]
     },
     {
       "description": "Internal apps: Custom versioning and disable pinning",
       "matchDatasources": ["docker"],
-      // FIX 2: Change to matchPackagePatterns and fix the regex syntax
-      "matchPackagePatterns": ["^ghcr\\.io/portfolio-solver-platform/"],
+      // BULLETPROOF FIX: Use Prefix matching instead of regex
+      "matchPackagePrefixes": ["ghcr.io/portfolio-solver-platform/"],
       "versioning": "regex:^main-[a-f0-9]{8}-(?<patch>\\d{14})$",
-      // FIX 3: Disable digest pinning so it stops fighting the tag updates
       "pinDigests": false
     },
     {
