@@ -33,3 +33,11 @@ jobs:
 
       - name: Run actionlint
         run: docker run --rm -v "${{ github.workspace }}:/repo" -w /repo rhysd/actionlint:latest
+
+  required:
+    name: Required checks
+    runs-on: ubuntu-latest
+    needs: [validate-renovate, lint-actions]
+    steps:
+      - name: Mark as successful
+        run: echo "All required jobs have passed!"
