@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate-renovate:
+    name: Validate Renovate config
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Run Renovate config validator
+        run: npx --yes --package renovate -- renovate-config-validator --strict
+        env:
+          RENOVATE_CONFIG_FILE: 'config.js'
+
+  lint-actions:
+    name: Lint GitHub Actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Run actionlint
+        run: docker run --rm -v "${{ github.workspace }}:/repo" -w /repo rhysd/actionlint:latest
+
+  required:
+    name: Required checks
+    runs-on: ubuntu-latest
+    needs: [validate-renovate, lint-actions]
+    steps:
+      - name: Mark as successful
+        run: echo "All required jobs have passed!"
