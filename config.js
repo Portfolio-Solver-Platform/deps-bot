@@ -36,26 +36,28 @@ module.exports = {
     {
       "description": "Group all GitHub Actions updates together",
       "matchManagers": ["github-actions"],
-      "groupName": "GitHub Actions updates"
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "GitHub Actions minor and patch updates"
     },
     {
       "description": "Group all Docker image updates together",
       "matchDatasources": ["docker"],
-      "groupName": "Docker image updates"
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "Docker image minor and patch updates"
     },
 
 
     // ===== Internal apps
     {
       "description": "Disable pinning for internal apps",
-      "matchPackagePrefixes": ["ghcr.io/portfolio-solver-platform/"],
+      "matchPackageNames": ["ghcr.io/portfolio-solver-platform/{/,}**"],
       "matchUpdateTypes": ["pin", "digest", "pinDigest"],
       "enabled": false
     },
     {
       "description": "Internal apps: Custom versioning, separate grouping, no wait",
       "matchDatasources": ["docker"],
-      "matchPackagePrefixes": ["ghcr.io/portfolio-solver-platform/"],
+      "matchPackageNames": ["ghcr.io/portfolio-solver-platform/{/,}**"],
       "versioning": "regex:^main-[a-f0-9]{8}-(?<patch>\\d{14})$",
       "minimumReleaseAge": "0 days",
       "groupName": "Internal apps"
