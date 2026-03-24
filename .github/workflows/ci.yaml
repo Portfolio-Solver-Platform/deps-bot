@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Run Renovate Config Validator
-        run: npx --yes renovate-config-validator --strict
+      - name: Run Renovate config validator
+        run: npx --yes --package renovate -- renovate-config-validator --strict
         env:
           RENOVATE_CONFIG_FILE: 'config.js'
 
