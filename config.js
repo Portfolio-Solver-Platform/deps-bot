@@ -14,6 +14,10 @@ module.exports = {
   timezone: "Europe/Copenhagen",
   labels: ["deps-bot"],
 
+  nix: {
+    enabled: true
+  },
+
   packageRules: [
     // ==== General rules
     {
