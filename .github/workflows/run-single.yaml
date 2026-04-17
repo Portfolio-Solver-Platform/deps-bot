@@ -10,6 +10,11 @@ on:
         description: 'Target repository (e.g., owner/repo)'
         required: true
         type: string
+      debug_mode:
+        description: 'Enable debug logging'
+        required: false
+        type: boolean
+        default: false
 
 env:
   RENOVATE_VERSION: 43.80.0 # renovate: datasource=docker depName=ghcr.io/renovatebot/renovate
@@ -30,7 +35,7 @@ jobs:
           private-key: ${{ secrets.INFRASTRUCTURE_BOT_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
 
-      - name: Self-hosted Renovate
+      - name: Run Renovate
         uses: renovatebot/github-action@68a3ea99af6ad249940b5a9fdf44fc6d7f14378b # v46.1.6
         with:
           renovate-version: ${{ env.RENOVATE_VERSION }}
@@ -38,3 +43,4 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
         env:
           RENOVATE_REPOSITORIES: ${{ env.TARGET_REPO }}
+          LOG_LEVEL: ${{ inputs.debug_mode == true && 'debug' || 'info' }}
