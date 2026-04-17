@@ -10,7 +10,7 @@
    ],
   "packageRules": [
       {
-        "matchManagers": ["regex"],
+        "matchManagers": ["custom.regex"],
         "matchPackageNames": ["ghcr.io/renovatebot/renovate"],
         "pinDigests": false
       }
