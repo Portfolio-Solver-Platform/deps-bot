@@ -1,0 +1,11 @@
+{
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^\\.github/workflows/.*\\.ya?ml$"],
+      "matchStrings": [
+        "RENOVATE_VERSION:\\s*['\"]?(?<currentValue>[\\w\\.-]+)['\"]?\\s*#\\s*renovate:\\s*datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)"
+      ]
+    }
+  ]
+}
