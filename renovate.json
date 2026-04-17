@@ -7,12 +7,5 @@
          "RENOVATE_VERSION:\\s*['\"]?(?<currentValue>[\\w\\.-]+)['\"]?\\s*#\\s*renovate:\\s*datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)"
        ]
      }
-   ],
-  "packageRules": [
-      {
-        "matchManagers": ["custom.regex"],
-        "matchPackageNames": ["ghcr.io/renovatebot/renovate"],
-        "pinDigests": false
-      }
-    ]
+   ]
 }
