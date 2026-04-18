@@ -13,13 +13,17 @@
       "description": "Automerge minor and patch updates for GitHub Actions",
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true
+      "automerge": true,
+      "platformAutomerge": true,
+      "automergeType": "pr"
     },
     {
       "description": "Automerge minor and patch updates for the Renovate bot package",
       "matchPackageNames": ["renovatebot/renovate"],
       "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true
+      "automerge": true,
+      "platformAutomerge": true,
+      "automergeType": "pr"
     }
   ]
 }
