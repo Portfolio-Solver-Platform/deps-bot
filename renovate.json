@@ -7,5 +7,19 @@
          "RENOVATE_VERSION:\\s*['\"]?(?<currentValue>[\\w\\.-]+)['\"]?\\s*#\\s*renovate:\\s*datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)"
        ]
      }
-   ]
+   ],
+  "packageRules": [
+    {
+      "description": "Automerge minor and patch updates for GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "description": "Automerge minor and patch updates for the Renovate bot package",
+      "matchPackageNames": ["renovatebot/renovate"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    }
+  ]
 }
