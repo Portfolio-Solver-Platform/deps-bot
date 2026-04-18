@@ -1,7 +1,5 @@
 name: Run deps bot single-repo
 on:
-  push:
-    branches: [main]
   repository_dispatch:
     types: [run-single]
   workflow_dispatch:
