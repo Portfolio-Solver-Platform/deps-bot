@@ -11,6 +11,7 @@
   "packageRules": [
     {
       "description": "Automerge minor and patch updates for GitHub Actions",
+      "groupName": "GitHub Actions minor/patch updates",
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
@@ -19,6 +20,7 @@
     },
     {
       "description": "Automerge minor and patch updates for the Renovate bot package",
+      "groupName": "GitHub Actions minor/patch updates",
       "matchPackageNames": ["renovatebot/renovate"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
