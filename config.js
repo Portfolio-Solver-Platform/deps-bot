@@ -6,6 +6,7 @@ module.exports = {
   requireConfig: "optional",
   prHourlyLimit: 10,
   prConcurrentLimit: 20,
+  semanticCommits: "enabled",
 
   // Dependency settings
   extends: [
