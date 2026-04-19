@@ -15,7 +15,7 @@ on:
         default: false
 
 env:
-  RENOVATE_VERSION: 43.112.0 # renovate: datasource=github-releases depName=renovatebot/renovate
+  RENOVATE_VERSION: 43.113.0 # renovate: datasource=github-releases depName=renovatebot/renovate
   TARGET_REPO: ${{ github.event.client_payload.repository || inputs.repository || github.repository }}
 
 jobs:
