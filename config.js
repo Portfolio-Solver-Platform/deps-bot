@@ -8,6 +8,13 @@ module.exports = {
   prConcurrentLimit: 20,
   semanticCommits: "enabled",
 
+  // Vulnerability scanning
+  osvVulnerabilityAlerts: true,
+  vulnerabilityAlerts: {
+    labels: ["security", "high-priority"],
+    commitMessageSuffix: "[SECURITY]"
+  },
+
   // Dependency settings
   extends: [
     "config:best-practices"
