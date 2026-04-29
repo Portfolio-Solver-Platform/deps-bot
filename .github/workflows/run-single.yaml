@@ -18,6 +18,22 @@ on:
         required: false
         type: boolean
         default: true
+  workflow_call:
+    inputs:
+      repository:
+        description: 'Target repository (e.g., owner/repo)'
+        required: true
+        type: string
+      debug_mode:
+        description: 'Enable debug logging'
+        required: false
+        type: boolean
+        default: false
+      dry_run:
+        description: 'Run Renovate in dry-run mode'
+        required: false
+        type: boolean
+        default: true
 
 env:
   RENOVATE_VERSION: 43.140.0 # renovate: datasource=github-releases depName=renovatebot/renovate
