@@ -37,7 +37,7 @@ jobs:
   dry-run-renovate:
     name: Dry Run Renovate
     needs: [validate-renovate]
-    uses: Portfolio-Solver-Platform/deps-bot/.github/workflows/run-single.yaml@main
+    uses: Portfolio-Solver-Platform/deps-bot/.github/workflows/run-single.yaml@wip-ci-dry-run
     with:
       repository: ${{ github.repository }}
       dry_run: true
