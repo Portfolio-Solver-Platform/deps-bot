@@ -13,6 +13,11 @@ on:
         required: false
         type: boolean
         default: false
+      dry_run:
+        description: 'Run Renovate in dry-run mode'
+        required: false
+        type: boolean
+        default: true
 
 env:
   RENOVATE_VERSION: 43.140.0 # renovate: datasource=github-releases depName=renovatebot/renovate
@@ -42,3 +47,4 @@ jobs:
         env:
           RENOVATE_REPOSITORIES: ${{ env.TARGET_REPO }}
           LOG_LEVEL: ${{ inputs.debug_mode == true && 'debug' || 'info' }}
+          RENOVATE_DRY_RUN: ${{ inputs.dry_run == true && 'full' || '' }}
