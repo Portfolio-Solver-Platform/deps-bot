@@ -26,6 +26,22 @@ module.exports = {
     enabled: true
   },
 
+  customManagers: [
+    {
+      description: "Update rust-toolchain channel via GitHub releases",
+      customType: "regex",
+      fileMatch: [
+        "(^|/)rust-toolchain(\\.toml)?$"
+      ],
+      matchStrings: [
+        "channel\\s*=\\s*\"(?<currentValue>[0-9.]+)\""
+      ],
+      depNameTemplate: "rust-lang/rust",
+      datasourceTemplate: "github-releases",
+      versioningTemplate: "semver"
+    }
+  ],
+
   packageRules: [
     // ==== General rules
     {
