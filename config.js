@@ -22,10 +22,6 @@ module.exports = {
   timezone: "Europe/Copenhagen",
   labels: ["deps-bot"],
 
-  customEnvVariables: {
-    TF_CLI_PATH: "tofu" // Assume OpenTofu instead of Terraform
-  },
-
   nix: {
     enabled: true
   },
@@ -78,6 +74,11 @@ module.exports = {
       "groupName": "Docker image minor and patch updates"
     },
 
+    {
+      "description": "Use the OpenTofu registry for Terraform",
+      "matchDatasources": ["terraform-provider", "terraform-module"],
+      "registryUrls": ["https://registry.opentofu.org"]
+    },
 
     // ===== Internal apps
     {
