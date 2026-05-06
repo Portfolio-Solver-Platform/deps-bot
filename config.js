@@ -22,6 +22,10 @@ module.exports = {
   timezone: "Europe/Copenhagen",
   labels: ["deps-bot"],
 
+  customEnvVariables: {
+    TF_CLI_PATH: "tofu" // Assume OpenTofu instead of Terraform
+  },
+
   nix: {
     enabled: true
   },
